@@ -10,36 +10,26 @@
 
       <%- include ../partials/nav %>
 
-    </nav>
-    
+    </nav> 
 
-
+  
 
 
     <div class="container">
 
-      <% if (user) { %>
-        <h2>Welcome <%= user.name %></h2>
-      <% } %>
-      
-      <h3>New mission!</h3>
+      <div class="new-search-div">      
+        <h2>New mission!</h2>
+        <!-- search field -->
+        <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+        <!-- google map -->
+        
+      </div>
 
-      <form action="/missions/new" method="GET">
-        <input type="text" name="location" placeholder="Location">
-        <input type="submit" value="Search">
-      </form>
-
-
-
-
-
-
-
-
-
-      <input id="pac-input" class="controls" type="text"
-          placeholder="Enter a location">
       <div id="map"></div>
+
+
+<!-- user id to link with creation -->
+<input type="hidden" value="<%= user.user_id %>" id="userID"> 
 <script>
 var map;
 var infowindow;
@@ -55,7 +45,7 @@ function initMap() {
 
   var input = (document.getElementById('pac-input'));
 
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
 
@@ -98,12 +88,8 @@ function initMap() {
       ].join(' ');
     }
     
-    var data = place.address_components;
-    var address1 = data[0].long_name;
-    var address2 = data[data.length-1].long_name;
-
     //console.log(missionData)
-    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address + '<form action="/missions" method="POST">' + '<input type="hidden" name="address1" value="'+address1+'""><input type="hidden" name="address2" value="'+address2+'"><input type="submit" value="Accept"></form>');
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address + '<form action="/missions" method="POST">' + '<input type="hidden" name="address1" value="'+place.name+'""><input type="hidden" name="address2" value="'+address+'"><input type="hidden" name="userID" value="'+$('#userID').val()+'"><input type="submit" value="Accept"></form>');
     infowindow.open(map, marker);
   });
 }

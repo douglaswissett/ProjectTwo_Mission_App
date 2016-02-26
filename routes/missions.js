@@ -6,12 +6,14 @@ var db           = require('../db/pg');
 
 
 missions.route('/')
-.get( (req,res) => {
+.get( db.showMissions, (req,res) => {
   res.render('pages/log_home', {
-    user: req.session.user
+    user: req.session.user,
+    missionData: res.rows
   });
 })
 .post( db.addMission, (req, res) => {
+  console.log(req.body);
   res.redirect('/missions');
 });
 

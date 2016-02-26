@@ -45,16 +45,16 @@ html, body {
   text-align: center;
 }
 
-.container-2 {
+.login-div {
   width: 400px;
-  height: 400px;
+  height: 220px;
   margin: 100px auto 0;
   padding: 50px;
   border-radius: 15px;
   background-color: #aaa;
 }
 
-.container-2 h2 {
+.login-div h2 {
   margin-top: 10px;
 }
 
@@ -64,6 +64,14 @@ html, body {
 
 .logout {
   margin: 10px;
+}
+
+.new-search-div {
+  border: 1px solid red;
+  width: 340px;
+  height: 140px;
+  padding: 10px;
+  float: left;
 }
 
 
@@ -76,9 +84,12 @@ html, body {
 
 
 #map {
-  height: 400px;
-  width: 800px;
+  height: 500px;
+  width: 700px;
   margin-top: 50px;
+  float: right;
+  position: relative;
+  top: -40px;
 }
 
 
