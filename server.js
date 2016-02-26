@@ -14,7 +14,8 @@ var conString        = "postgres://"+process.env.DB_USER+":"+process.env.DB_PASS
 var db               = require('./db/pg');
 var app              = express();
 
-var userRoutes = require(path.join(__dirname, 'routes/users'));
+var userRoutes    = require(path.join(__dirname, 'routes/users'));
+var missionRoutes = require(path.join(__dirname, 'routes/missions'));
 
 /*Sessions*/
 app.use(session({
@@ -49,6 +50,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', userRoutes);
+app.use('/missions', missionRoutes);
 
 
 

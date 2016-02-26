@@ -1,5 +1,13 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
 .container-2 {
-  width: 40%;
+  width: 400px;
   height: 400px;
   margin: 100px auto 0;
   padding: 50px;
@@ -15,6 +23,9 @@
   text-align: center;
 }
 
+.logout {
+  margin: 10px;
+}
 
 
 

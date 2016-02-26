@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <%- include ../partials/head %>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+
+      <%- include ../partials/nav %>
+
+    </nav>
+    
+
+
+
+
+    <div class="container">
+
+      <% if (user) { %>
+        <h3>Welcome <%= user.name %></h3>
+      <% } %>
+      
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <%- include ../partials/footer %>
+
+  </body>
+</html>

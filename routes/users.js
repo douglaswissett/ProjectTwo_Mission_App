@@ -23,13 +23,17 @@ users.route('/')
 
 // show new user form
 users.get('/new', (req, res) => {
-  res.render('users/new');
+  res.render('users/new',{
+    user: req.session.user
+  });
 });
 
 
 // show login user form
 users.get('/login', (req, res) => {
-  res.render('users/login');
+  res.render('users/login',{
+    user: req.session.user
+  });
 });
 
 users.post('/login', db.loginUser, (req, res) => {
@@ -41,7 +45,7 @@ users.post('/login', db.loginUser, (req, res) => {
    // the destination page well before we finished sending the response to the client."
 
   req.session.save(() => {
-    res.redirect('/');
+    res.redirect('/missions');
   });
 });
 
