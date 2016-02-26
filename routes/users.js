@@ -20,7 +20,6 @@ users.route('/')
   res.redirect('/'); // change route to logged in page
 })
 
-
 // show new user form
 users.get('/new', (req, res) => {
   res.render('users/new',{
@@ -38,11 +37,6 @@ users.get('/login', (req, res) => {
 
 users.post('/login', db.loginUser, (req, res) => {
   req.session.user = res.rows;
-
-   // when you redirect you must force a save due to asynchronisity
-   // https://github.com/expressjs/session/issues/167 **
-   // "modern web browsers ignore the body of the response and so start loading
-   // the destination page well before we finished sending the response to the client."
 
   req.session.save(() => {
     res.redirect('/missions');

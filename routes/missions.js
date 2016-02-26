@@ -16,4 +16,33 @@ missions.route('/')
 
 
 
+missions.get('/new', (req, res) => {
+  res.render('pages/log_new', {
+    user: req.session.user,
+  });
+});
+
+
+
+
+
+missions.get('/all', (req, res) => {
+  res.render('pages/log_all', {
+    user: req.session.user
+  });
+});
+
+
+
+
+missions.delete('/users/logout', (req, res) => {
+  req.session.destroy( (err) => {
+    res.redirect('/');
+  });
+});
+
+
+
+
+
 module.exports = missions;
