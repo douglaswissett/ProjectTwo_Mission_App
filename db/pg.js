@@ -107,8 +107,28 @@ function selectMission(req, res, next) {
   });  
 }
 
+function addMission(req, res, next) {
+  pg.connect(conString, function(err, client, done) {
+
+    if(err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query('INSERT INTO sites (name, location) VALUES ($1, $2)',
+     [req.body.address1, req.body.address2],
+     function(err, result) {
+      done();
+
+      if(err) {
+        return console.error('error running query', err);
+      }
+      next();
+    });
+  });
+}
+
 
 module.exports.createUser    = createUser;
 module.exports.loginUser     = loginUser;
 module.exports.showAllUsers  = showAllUsers;
 module.exports.selectMission = selectMission;
+module.exports.addMission    = addMission;

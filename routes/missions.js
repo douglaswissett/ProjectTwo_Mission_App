@@ -11,6 +11,9 @@ missions.route('/')
     user: req.session.user
   });
 })
+.post( db.addMission, (req, res) => {
+  res.redirect('/missions');
+});
 
 
 
@@ -18,15 +21,10 @@ missions.route('/')
 
 missions.route('/new')
 .get( (req, res) => {
-
   res.render('pages/log_new', {
     user: req.session.user
   });
 })
-.post( (req, res) => {
-  
-  // res.redirect('./');
-});
 
 
 
