@@ -6,7 +6,8 @@ CREATE TABLE users (
   user_id SERIAL UNIQUE PRIMARY KEY,
   name VARCHAR(255),
   email VARCHAR(255),
-  password_digest TEXT
+  password_digest TEXT,
+  score INT
 );
 
 CREATE TABLE sites (

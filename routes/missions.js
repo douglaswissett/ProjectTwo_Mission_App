@@ -16,19 +16,24 @@ missions.route('/')
 
 
 
-missions.get('/new', (req, res) => {
+missions.route('/new')
+.get( (req, res) => {
   res.render('pages/log_new', {
     user: req.session.user,
   });
+})
+.post( (req, res) => {
+  // add mission here
 });
 
 
 
 
 
-missions.get('/all', (req, res) => {
+missions.get('/all', db.showAllUsers, (req, res) => {
   res.render('pages/log_all', {
-    user: req.session.user
+    user: req.session.user,
+    userData: res.rows
   });
 });
 

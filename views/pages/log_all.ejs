@@ -11,20 +11,18 @@
       <%- include ../partials/nav %>
 
     </nav>
-    
-
-
-
 
     <div class="container">
 
-      <% if (user) { %>
-        <h2>Welcome <%= user.name %></h2>
-      <% } %>
+      <h2>Search for a user</h2>
       
-      
-
-      <h3>ALl users!</h3>
+      <table>
+        <% userData.forEach((x) => { %>
+          <tr>
+            <td>Username: <%= x.name %></td>
+          </tr>
+        <% }) %>
+      </table>
 
       
 
