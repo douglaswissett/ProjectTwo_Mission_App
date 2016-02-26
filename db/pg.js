@@ -71,7 +71,6 @@ function createUser(req, res, next) {
   }
 }
 
-
 function showAllUsers(req, res, next) {
   pg.connect(conString, function(err, client, done) {
     if(err) {
@@ -89,8 +88,27 @@ function showAllUsers(req, res, next) {
   });
 }
 
+function selectMission(req, res, next) {
+  pg.connect(conString, function(err, client, done) {
+    if(err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query("SELECT * FROM sites WHERE location like $1", 
+      [`%${req.query.location}%`],
+      function(err, result) {
+      done();
+      
+      if(err) {
+        return console.error('error running query', err);
+      }
+      res.rows = result.rows;
+      next();
+    });
+  });  
+}
 
 
-module.exports.createUser   = createUser;
-module.exports.loginUser    = loginUser;
-module.exports.showAllUsers = showAllUsers;
+module.exports.createUser    = createUser;
+module.exports.loginUser     = loginUser;
+module.exports.showAllUsers  = showAllUsers;
+module.exports.selectMission = selectMission;

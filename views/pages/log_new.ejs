@@ -24,12 +24,14 @@
       
       <h3>New mission!</h3>
 
-      <form action="/missions/new" method="POST">
+      <form action="/missions/new" method="GET">
         <input type="text" name="location" placeholder="Location">
         <input type="submit" value="Search">
       </form>
 
-
+      <% missionData.forEach((x)=> { %>
+        <h3><%= x.name %></h3>
+      <% }) %>
 
 
 
