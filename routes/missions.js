@@ -17,11 +17,10 @@ missions.route('/')
 
 
 missions.route('/new')
-.get( db.selectMission, (req, res) => {
+.get( (req, res) => {
 
   res.render('pages/log_new', {
-    user: req.session.user,
-    missionData: res.rows
+    user: req.session.user
   });
 })
 .post( (req, res) => {
