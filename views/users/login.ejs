@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <%- include ../partials/head %>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+
+      <%- include ../partials/nav %>
+
+    </nav>
+    
+
+    <div class="container-2">
+
+          <form action="/users/login" method="POST">
+            <h2>Please sign in</h2>
+            <label for="inputEmail" class="">Email address</label>
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <label for="inputPassword" class="">Password</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="remember-me"> Remember me
+              </label>
+            </div>
+            <button class="btn btn-lg btn-block colorTheme" type="submit">Sign in</button>
+          </form>
+
+        </div> <!-- /container -->
+
+
+    <%- include ../partials/footer %>
+
+  </body>
+</html>

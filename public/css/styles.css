@@ -1,0 +1,30 @@
+.container-2 {
+  width: 40%;
+  height: 400px;
+  margin: 100px auto 0;
+  padding: 50px;
+  border-radius: 15px;
+  background-color: #c1f0c1;
+}
+
+.container-2 h2 {
+  margin-top: 10px;
+}
+
+.banner {
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+/*Colors*/
+
+.colorTheme {
+  background-color: #fff;
+}

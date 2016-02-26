@@ -1,0 +1,34 @@
+{
+  "name": "go_mission",
+  "version": "1.0.0",
+  "description": "This app will assign the user a mission to visit a nearby landmark, completing the mission will grant the user points. You can share your score with other users.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/douglaswissett/ProjectTwo_Mission_App.git"
+  },
+  "author": "Douglas Wissett Walker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/douglaswissett/ProjectTwo_Mission_App/issues"
+  },
+  "homepage": "https://github.com/douglaswissett/ProjectTwo_Mission_App#readme",
+  "dependencies": {
+    "bcrypt": "^0.8.5",
+    "body-parser": "^1.15.0",
+    "connect-pg-simple": "^3.1.0",
+    "dotenv": "^2.0.0",
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "method-override": "^2.3.5",
+    "morgan": "^1.7.0",
+    "path": "^0.12.7",
+    "pg": "^4.5.1",
+    "pryjs": "^0.1.3"
+  }
+}
