@@ -14,6 +14,8 @@ CREATE TABLE sites (
   site_id SERIAL UNIQUE PRIMARY KEY,
   name VARCHAR(255),
   location VARCHAR(255),
+  lat FLOAT,
+  lng FLOAT,
   points INT
 );
 

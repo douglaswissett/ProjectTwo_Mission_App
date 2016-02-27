@@ -108,13 +108,14 @@ function selectMission(req, res, next) {
 }
 
 function addMission(req, res, next) {
-  pg.connect(conString, function(err, client, done) {
+  var coords = req.body.position.slice(1,-1).split(',');
 
+  pg.connect(conString, function(err, client, done) {
     if(err) {
       return console.error('error fetching client from pool', err);
     }
-    client.query('INSERT INTO sites (name, location) VALUES ($1, $2) RETURNING site_id',
-     [req.body.address1, req.body.address2],
+    client.query('INSERT INTO sites (name, location, lat, lng) VALUES ($1, $2, $3, $4) RETURNING site_id',
+     [req.body.address1, req.body.address2, coords[0], coords[1]],
      function(err, result) {
       done();
 
@@ -153,7 +154,12 @@ function showMissions(req, res, next) {
     if(err) {
       return console.error('error fetching client from pool', err);
     }
-    client.query("SELECT mission_id, users.name, sites.name as objective, sites.location, completed FROM mission LEFT JOIN users ON mission.user_id = users.user_id LEFT JOIN sites ON mission.site_id = sites.site_id;", 
+    client.query(`
+      SELECT mission_id, users.name, sites.name as objective, sites.location, sites.lat, sites.lng, completed 
+      FROM mission LEFT JOIN users 
+      ON mission.user_id = users.user_id 
+      LEFT JOIN sites 
+      ON mission.site_id = sites.site_id;`, 
       function(err, result) {
       done();
       
