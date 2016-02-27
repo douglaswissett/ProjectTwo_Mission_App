@@ -113,8 +113,30 @@ function addMission(req, res, next) {
     if(err) {
       return console.error('error fetching client from pool', err);
     }
-    client.query('INSERT INTO sites (name, location) VALUES ($1, $2)',
+    client.query('INSERT INTO sites (name, location) VALUES ($1, $2) RETURNING site_id',
      [req.body.address1, req.body.address2],
+     function(err, result) {
+      done();
+
+      if(err) {
+        return console.error('error running query', err);
+      }
+      res.rows = result.rows[0];
+      next();
+    });
+  });
+}
+
+function joinMission(req, res, next) {
+  userID = +(req.body.userID);
+  siteID = res.rows.site_id;
+  
+  pg.connect(conString, function(err, client, done) {
+    if(err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query('INSERT INTO mission (user_id, site_id) VALUES ($1, $2)',
+     [ userID, siteID ],
      function(err, result) {
       done();
 
@@ -151,3 +173,4 @@ module.exports.showAllUsers  = showAllUsers;
 module.exports.selectMission = selectMission;
 module.exports.addMission    = addMission;
 module.exports.showMissions  = showMissions;
+module.exports.joinMission   = joinMission;

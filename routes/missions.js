@@ -12,7 +12,7 @@ missions.route('/')
     missionData: res.rows
   });
 })
-.post( db.addMission, (req, res) => {
+.post( db.addMission, db.joinMission, (req, res) => {
   console.log(req.body);
   res.redirect('/missions');
 });
