@@ -11,7 +11,6 @@
       <%- include ../partials/nav %>
 
     </nav>
-    
 
 
 
@@ -27,7 +26,8 @@
       <div class="card-div">
         <% missionData.forEach((x, index) => { %>
           <div class="mission-cards">
-            <h4>Mission <%= index %> : <%= x.objective %></h4>
+            <h4>Mission <%= index %>:</h4>
+            <h5><%= x.objective %></h5>
             <ul>
               <li>Location: <%= x.location %></li>
               <li>Status: <%= x.completed %></li>
@@ -48,10 +48,16 @@
     <script>
 
       var map;
+      var center = {lat:30.668353, lng: -0.12750};
       function initMap() {
         map = new google.maps.Map(document.getElementById('map2'), {
-          center: {lat: 51.50722, lng: -0.12750},
-          zoom: 2
+          center: center,
+          zoom: 2,
+          disableDefaultUI: true,
+          draggable: false,
+          zoomControl: false, 
+          scrollwheel: false, 
+          disableDoubleClickZoom: true
         });
 
       // test marker
@@ -97,9 +103,17 @@
             map: map,
             shape: shape,
           });
-        }
-
-       
+          // add click event to zoom in on marker
+          google.maps.event.addListener(marker, 'click', function() {
+            map.setCenter(this.getPosition());
+            map.setZoom(9);
+            // setTimeout to zoom out to world
+            window.setTimeout(function() {
+            map.setZoom(2);
+            map.setCenter(center);
+          }, 3000);
+          });
+        }    
 
       }
 

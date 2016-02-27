@@ -13,7 +13,6 @@ missions.route('/')
   });
 })
 .post( db.addMission, db.joinMission, (req, res) => {
-
   res.redirect('/missions');
 });
 

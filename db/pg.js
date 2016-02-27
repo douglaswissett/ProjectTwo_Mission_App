@@ -150,6 +150,8 @@ function joinMission(req, res, next) {
 }
 
 function showMissions(req, res, next) {
+  var userID = req.session.user.user_id;
+
   pg.connect(conString, function(err, client, done) {
     if(err) {
       return console.error('error fetching client from pool', err);
@@ -159,7 +161,9 @@ function showMissions(req, res, next) {
       FROM mission LEFT JOIN users 
       ON mission.user_id = users.user_id 
       LEFT JOIN sites 
-      ON mission.site_id = sites.site_id;`, 
+      ON mission.site_id = sites.site_id
+      WHERE mission.user_id = $1;`,
+      [userID], 
       function(err, result) {
       done();
       
@@ -167,7 +171,6 @@ function showMissions(req, res, next) {
         return console.error('error running query', err);
       }
       res.rows = result.rows;
-      console.log(res.rows);
       next();
     });
   });  
