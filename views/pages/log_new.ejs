@@ -50,10 +50,15 @@ function initMap() {
   autocomplete.bindTo('bounds', map);
 
   var infowindow = new google.maps.InfoWindow();
+
   var marker = new google.maps.Marker({
     map: map,
     anchorPoint: new google.maps.Point(0, -29)
   });
+
+  //   var infowindow = new google.maps.InfoWindow({
+  //   content: '<p>Marker Location:' + marker.getPosition() + '</p>'
+  // });
 
   autocomplete.addListener('place_changed', function() {
     infowindow.close();
@@ -88,8 +93,8 @@ function initMap() {
       ].join(' ');
     }
     
-    //console.log(missionData)
-    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address + '<form action="/missions" method="POST">' + '<input type="hidden" name="address1" value="'+place.name+'""><input type="hidden" name="address2" value="'+address+'"><input type="hidden" name="userID" value="'+$('#userID').val()+'"><input type="submit" value="Accept"></form>');
+    
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address + '<form action="/missions" method="POST">' + '<input type="hidden" name="address1" value="'+place.name+'""><input type="hidden" name="address2" value="'+address+'"><input type="hidden" name="userID" value="'+$('#userID').val()+'"><input type="hidden" name="position" value="'+marker.getPosition()+'"><input type="submit" value="Accept"></form>');
     infowindow.open(map, marker);
   });
 }

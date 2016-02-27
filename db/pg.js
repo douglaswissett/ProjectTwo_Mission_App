@@ -153,7 +153,7 @@ function showMissions(req, res, next) {
     if(err) {
       return console.error('error fetching client from pool', err);
     }
-    client.query("SELECT * FROM sites", 
+    client.query("SELECT mission_id, users.name, sites.name as objective, sites.location, completed FROM mission LEFT JOIN users ON mission.user_id = users.user_id LEFT JOIN sites ON mission.site_id = sites.site_id;", 
       function(err, result) {
       done();
       
@@ -161,6 +161,7 @@ function showMissions(req, res, next) {
         return console.error('error running query', err);
       }
       res.rows = result.rows;
+      console.log(res.rows);
       next();
     });
   });  
