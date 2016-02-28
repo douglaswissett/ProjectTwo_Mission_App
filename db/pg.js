@@ -176,6 +176,33 @@ function showMissions(req, res, next) {
   });  
 }
 
+function getMission(req, res, next) {
+  var userID = req.session.user.user_id;
+  var mID = req.params.id;
+  pg.connect(conString, function(err, client, done) {
+    if(err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query(`
+      SELECT mission_id, users.name, sites.name as objective, sites.location, sites.lat, sites.lng, completed 
+      FROM mission LEFT JOIN users 
+      ON mission.user_id = users.user_id 
+      LEFT JOIN sites 
+      ON mission.site_id = sites.site_id
+      WHERE mission.user_id = $1 AND mission_id = $2;`,
+      [userID, mID],
+      function(err, result) {
+      done();
+      
+      if(err) {
+        return console.error('error running query', err);
+      }
+      res.rows = result.rows[0];
+      next();
+    });
+  }); 
+}
+
 
 module.exports.createUser    = createUser;
 module.exports.loginUser     = loginUser;
@@ -184,3 +211,4 @@ module.exports.selectMission = selectMission;
 module.exports.addMission    = addMission;
 module.exports.showMissions  = showMissions;
 module.exports.joinMission   = joinMission;
+module.exports.getMission    = getMission;

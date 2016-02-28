@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <%- include ../partials/head %>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+
+      <%- include ../partials/nav %>
+
+    </nav>
+
+    <div class="container">
+      <h2>Mission details: <%= missionData.mission_id %></h2>
+      <h3>Agent: <%= user.name %></h3><br>
+      <p>Your mission is to go to <%= missionData.objective %>, located in <%= missionData.location %>.<br>
+        Latitude: <%= missionData.lat %><br>
+        Longitude: <%= missionData.lng %></p>
+
+
+      <div class="missionStatus">
+        <h3>Status: <%= missionData.completed %></h3>
+      </div>
+    </div>
+
+
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">&copy; 2016 GoMission.</p>
+      </div>
+    </footer>
+    
+    <%- include ../partials/footer %>
+
+  </body>
+</html>

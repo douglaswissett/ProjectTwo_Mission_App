@@ -9,13 +9,12 @@ var db           = require('../db/pg');
 
 
 
-
+// user index
 users.route('/')
 .get( (req, res) => {
-
   res.sendStatus(200);
-
 })
+// create new user
 .post(db.createUser, (req, res) => {
   res.redirect('/'); // change route to logged in page
 })
@@ -27,14 +26,13 @@ users.get('/new', (req, res) => {
   });
 });
 
-
 // show login user form
 users.get('/login', (req, res) => {
   res.render('users/login',{
     user: req.session.user
   });
 });
-
+// login user and save session
 users.post('/login', db.loginUser, (req, res) => {
   req.session.user = res.rows;
 
@@ -42,7 +40,7 @@ users.post('/login', db.loginUser, (req, res) => {
     res.redirect('/missions');
   });
 });
-
+// delete user session on logout
 users.delete('/logout', (req, res) => {
   req.session.destroy( (err) => {
     res.redirect('/');
