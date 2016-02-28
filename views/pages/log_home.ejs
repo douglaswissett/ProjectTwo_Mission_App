@@ -136,7 +136,7 @@
             window.setTimeout(function() {
             map.setZoom(2);
             map.setCenter(center);
-          }, 3000);
+          }, 6000);
           });
         }    
 
@@ -144,7 +144,7 @@
 
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZwpThrbZbJVY1yt-oTlYePJ_s5I-GZIU&callback=initMap"
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.APIKEY %>&callback=initMap"
     async defer></script>
 
     <footer class="footer">

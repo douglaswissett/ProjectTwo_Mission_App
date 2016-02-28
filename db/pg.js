@@ -1,5 +1,5 @@
 var pg            = require('pg');
-var conString     = "postgres://"+process.env.DB_USER+":"+process.env.DB_PASSWORD+"@"+process.env.DB_HOST+"/gomissiondb";
+var conString     = "postgres://"+process.env.DB_USER+":"+process.env.DB_PASS+"@"+process.env.DB_HOST+"/gomissiondb";
 var bcrypt        = require('bcrypt');
 var salt          = bcrypt.genSaltSync(10);
 var session       = require('express-session');
