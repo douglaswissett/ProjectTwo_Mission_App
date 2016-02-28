@@ -57,7 +57,13 @@ missions.route('/profile')
 })
 .put( db.updateProfile, (req, res) => {
   console.log(req.body);
-  res.redirect('/missions');
+  res.redirect('./');
+})
+
+missions.delete('/profile/users/logout', (req, res) => {
+  req.session.destroy( (err) => {
+    res.redirect('/');
+  }); 
 })
 
 
@@ -71,7 +77,8 @@ missions.route('/:id')
   });
 })
 
-.put( db.updateMission, (req, res) => {
+.put( db.updateMission, db.updateScore, (req, res) => {
+  console.log(req.body);
   res.redirect('/missions/' + req.body.missionID);
 })
 

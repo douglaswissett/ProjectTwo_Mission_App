@@ -14,7 +14,7 @@
 
     <div class="container">
       <h2>Mission details: <%= missionData.mission_id %></h2>
-      <h3>Agent: <%= user.name %></h3><br>
+      <h3>Agent: <%= user.name %></h3><br/>
       <p>Your mission is to go to <%= missionData.objective %>, located in <%= missionData.location %>.<br>
         Latitude: <%= missionData.lat %><br>
         Longitude: <%= missionData.lng %></p>
@@ -28,6 +28,7 @@
       <div>
         <form method="POST" action="/missions/<%= missionData.mission_id + '?_method=PUT' %>">
           <input type="hidden" name="missionID" value="<%= missionData.mission_id %>">
+          <input type="hidden" name="userID" value="<%= user.user_id %>">
           <button type="submit" class="btn btn-primary">Complete</button>
         </form>
       </div>

@@ -224,6 +224,26 @@ function updateMission(req, res, next) {
   });
 }
 
+function updateScore(req, res, next) {
+  var userID = req.body.userID;
+
+  pg.connect(conString, function(err, client, done) {
+    if(err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query('UPDATE users SET score = score + 1 WHERE user_id = $1',
+    [userID],
+     function(err, result) {
+      done();
+
+      if(err) {
+        return console.error('error running query', err);
+      }
+      next();
+    });
+  });
+}
+
 function deleteMission(req, res, next) {
   var mID = req.body.missionID;
 
@@ -278,3 +298,4 @@ module.exports.getMission    = getMission;
 module.exports.updateMission = updateMission;
 module.exports.deleteMission = deleteMission;
 module.exports.updateProfile = updateProfile;
+module.exports.updateScore   = updateScore;

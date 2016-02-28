@@ -16,13 +16,13 @@
 
       <h2>Search for a user</h2>
       
-      <table>
+      
         <% userData.forEach((x) => { %>
-          <tr>
-            <td>Username: <%= x.name %></td>
-          </tr>
+          <div >
+            <h5>Username: <%= x.name %> | Completed missions: <%= x.score %></h5>
+          </div>
         <% }) %>
-      </table>
+      
 
       
 

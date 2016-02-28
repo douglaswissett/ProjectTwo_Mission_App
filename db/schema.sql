@@ -7,7 +7,7 @@ CREATE TABLE users (
   name VARCHAR(255),
   email VARCHAR(255),
   password_digest TEXT,
-  score INT
+  score INT DEFAULT 0
 );
 
 CREATE TABLE sites (
@@ -16,7 +16,7 @@ CREATE TABLE sites (
   location VARCHAR(255),
   lat FLOAT,
   lng FLOAT,
-  points INT
+  points INT DEFAULT 1
 );
 
 CREATE TABLE mission (
