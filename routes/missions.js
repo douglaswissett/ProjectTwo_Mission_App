@@ -55,6 +55,10 @@ missions.route('/profile')
     user: req.session.user
   });
 })
+.put( db.updateProfile, (req, res) => {
+  console.log(req.body);
+  res.redirect('/missions');
+})
 
 
 

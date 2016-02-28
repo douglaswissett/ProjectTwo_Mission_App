@@ -7,6 +7,7 @@ var path             = require('path');
 var logger           = require('morgan');
 var bodyParser       = require('body-parser');
 var methodOverride   = require('method-override');
+var reload           = require('reload');
 var session          = require('express-session');
 var pgSession        = require('connect-pg-simple')(session);
 var pg               = require('pg');
@@ -51,7 +52,6 @@ app.get('/', (req, res) => {
 
 app.use('/users', userRoutes);
 app.use('/missions', missionRoutes);
-
 
 
 

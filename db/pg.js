@@ -243,6 +243,30 @@ function deleteMission(req, res, next) {
   });
 }
 
+function updateProfile(req, res, next) {
+  var userID = req.body.userID;
+  var userName = req.body.userName;
+  var userEmail = req.body.userEmail;
+  var userPassword = req.body.userPassword;
+
+  pg.connect(conString, function(err, client, done) {
+
+    if(err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query('UPDATE users SET name = $1, email = $2 WHERE user_id = $3;',
+    [ userName, userEmail, userID ],
+     function(err, result) {
+      done();
+
+      if(err) {
+        return console.error('error running query', err);
+      }
+      next();
+    });
+  });  
+}
+
 module.exports.createUser    = createUser;
 module.exports.loginUser     = loginUser;
 module.exports.showAllUsers  = showAllUsers;
@@ -253,3 +277,4 @@ module.exports.joinMission   = joinMission;
 module.exports.getMission    = getMission;
 module.exports.updateMission = updateMission;
 module.exports.deleteMission = deleteMission;
+module.exports.updateProfile = updateProfile;
