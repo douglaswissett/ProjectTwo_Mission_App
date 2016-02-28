@@ -23,5 +23,5 @@ CREATE TABLE mission (
   mission_id SERIAL UNIQUE PRIMARY KEY,
   user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
   site_id INT REFERENCES sites(site_id) ON DELETE CASCADE,
-  completed boolean
+  completed VARCHAR(50)
 );

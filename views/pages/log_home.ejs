@@ -11,11 +11,6 @@
       <%- include ../partials/nav %>
     </nav>
 
-    <div class="container">
-      
-    
-      <h2>Your missions:</h2>
-    </div>
 
 
 
@@ -39,13 +34,14 @@
             
             <div class="container">
               <div class="carousel-caption">
-                <h1><%= mission.objective %></h1>
+                <h1>Your missions:</h1>
+                <h2><%= mission.objective %></h2>
                 <ul>
-                  <li>Location: <%= mission.location %></li>
-                  <li>Status: <%= mission.completed %></li>
+                  <li style="font-weight: bold">Location: <%= mission.location %></li>
+                  <li style="font-weight: bold">Status: <%= mission.completed %></li>
                   <li>LntLng: <%= mission.lat %> , <%= mission.lng %></li>
                 </ul>
-                <p>Ready?</p>
+                <p style="font-weight: bold"><a href="/missions/">Ready?</a></p>
               </div>
             </div>
           </div>
@@ -79,7 +75,6 @@
           center: center,
           zoom: 2,
           disableDefaultUI: true,
-          draggable: false,
           zoomControl: false, 
           scrollwheel: false, 
           disableDoubleClickZoom: true
@@ -131,7 +126,7 @@
           // add click event to zoom in on marker
           google.maps.event.addListener(marker, 'click', function() {
             map.setCenter(this.getPosition());
-            map.setZoom(9);
+            map.setZoom(10);
             // setTimeout to zoom out to world
             window.setTimeout(function() {
             map.setZoom(2);

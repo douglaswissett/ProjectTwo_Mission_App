@@ -1,6 +1,6 @@
 html, body {
   height: 100%;
-  padding-top: 40px;
+  padding-top: 25px;
   padding-bottom: 40px;
   background-color: #eee;
 }
@@ -189,5 +189,6 @@ html, body {
 #map2 {
   height: 680px;
   width: 100%;
-  margin: 60px auto;
+  margin: 0 auto;
+  top: -60px;
 }

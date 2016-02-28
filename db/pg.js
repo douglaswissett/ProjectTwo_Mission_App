@@ -136,8 +136,8 @@ function joinMission(req, res, next) {
     if(err) {
       return console.error('error fetching client from pool', err);
     }
-    client.query('INSERT INTO mission (user_id, site_id) VALUES ($1, $2)',
-     [ userID, siteID ],
+    client.query('INSERT INTO mission (user_id, site_id, completed) VALUES ($1, $2, $3)',
+     [ userID, siteID, 'In progress' ],
      function(err, result) {
       done();
 
