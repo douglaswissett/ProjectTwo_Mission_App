@@ -59,12 +59,17 @@ missions.route('/profile')
 
 
 // show mission detail page
-missions.get('/:id', db.getMission, (req, res) => {
+missions.route('/:id')
+.get( db.getMission, (req, res) => {
   res.render('pages/log_detail', {
     user: req.session.user,
     missionData: res.rows
   });
-});
+})
+
+.delete( db.deleteMission, (req, res) => {
+  res.redirect('/missions');
+})
 
 
 

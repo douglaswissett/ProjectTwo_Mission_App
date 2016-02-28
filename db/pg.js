@@ -203,6 +203,24 @@ function getMission(req, res, next) {
   }); 
 }
 
+function deleteMission(req, res, next) {
+  var mID = req.body.missionID;
+
+  pg.connect(conString, function(err, client, done) {
+    if(err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query('DELETE FROM mission WHERE mission_id =' + mID +'',
+     function(err, result) {
+      done();
+
+      if(err) {
+        return console.error('error running query', err);
+      }
+      next();
+    });
+  });
+}
 
 module.exports.createUser    = createUser;
 module.exports.loginUser     = loginUser;
@@ -212,3 +230,4 @@ module.exports.addMission    = addMission;
 module.exports.showMissions  = showMissions;
 module.exports.joinMission   = joinMission;
 module.exports.getMission    = getMission;
+module.exports.deleteMission = deleteMission;
