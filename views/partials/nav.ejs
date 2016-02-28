@@ -1,3 +1,4 @@
+      
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -20,6 +21,10 @@
               <li><a href="/missions/all">All Users</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              <% if(user) { %>
+                <li><a href="/missions/profile">logged as: <%= user.name %></a></li>
+              <% } %>
+              
               <li class="active">
                 <form method="post" action="users/logout?_method=DELETE">
                   <input type="submit" value="logout" class="btn btn-link logout">
@@ -29,3 +34,4 @@
           <% } %>
         </div><!--/.nav-collapse -->
       </div>
+      

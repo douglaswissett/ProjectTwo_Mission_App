@@ -6,44 +6,69 @@
 
   </head>
   <body>
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
-
       <%- include ../partials/nav %>
-
     </nav>
 
-
-
-
     <div class="container">
-
-      <% if (user) { %>
-        <h2>Welcome: <%= user.name %></h2>
-      <% } %>
       
-      <h3>Your missions:</h3>
-
-      <div class="card-div">
-        <% missionData.forEach((x, index) => { %>
-          <div class="mission-cards">
-            <h4>Mission <%= index %>:</h4>
-            <h5><%= x.objective %></h5>
-            <ul>
-              <li>Location: <%= x.location %></li>
-              <li>Status: <%= x.completed %></li>
-              <li>LntLng: <%= x.lat %> , <%= x.lng %></li>
-            </ul>
-          </div>
-
-          <input type="hidden" class="coords" value="<%= x.lat %>,<%= x.lng %>">
-        <% }) %>
-      </div>
-
-      <div id="map2"></div>
-
+    
+      <h2>Your missions:</h2>
     </div>
 
 
+
+<!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <% missionData.forEach((mission, index) => { %>
+          <li data-target="#myCarousel" data-slide-to="<%= index %>" class="active"></li>
+        <% }) %>
+      </ol>
+
+      <div class="carousel-inner" role="listbox">
+
+
+        <% missionData.forEach((mission, index) => { %>
+          <% if(index === 0) { %> <div class="item active"> <% } else { %>
+          <div class="item">
+            <% } %>
+            
+            <div class="container">
+              <div class="carousel-caption">
+                <h1><%= mission.objective %></h1>
+                <ul>
+                  <li>Location: <%= mission.location %></li>
+                  <li>Status: <%= mission.completed %></li>
+                  <li>LntLng: <%= mission.lat %> , <%= mission.lng %></li>
+                </ul>
+                <p>Ready?</p>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" class="coords" value="<%= mission.lat %>,<%= mission.lng %>">
+        <% }) %>
+    
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div><!-- /.carousel -->
+
+
+    </div>
+
+    <div id="map2"></div>
+
+    
     
     <script>
 
@@ -121,6 +146,12 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZwpThrbZbJVY1yt-oTlYePJ_s5I-GZIU&callback=initMap"
     async defer></script>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">&copy; 2016 GoMission.</p>
+      </div>
+    </footer>
 
     <%- include ../partials/footer %>
 

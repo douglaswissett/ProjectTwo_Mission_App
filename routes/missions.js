@@ -48,6 +48,13 @@ missions.delete('/users/logout', (req, res) => {
 });
 
 
+missions.route('/profile')
+.get( (req, res) => {
+  res.render('pages/log_profile', {
+    user: req.session.user
+  });
+})
+
 
 
 
