@@ -24,10 +24,19 @@
         <h3>Status: <%= missionData.completed %></h3>
       </div>
 
+
+      <div>
+        <form method="POST" action="/missions/<%= missionData.mission_id + '?_method=PUT' %>">
+          <input type="hidden" name="missionID" value="<%= missionData.mission_id %>">
+          <button type="submit" class="btn btn-primary">Complete</button>
+        </form>
+      </div>
+
+
       <div>
         <form method="POST" action="/missions/<%= missionData.mission_id + '?_method=DELETE' %>">
           <input type="hidden" name="missionID" value="<%= missionData.mission_id %>">
-          <button type="submit" class="btn btn-danger deleteBtn2">Delete</button>
+          <button type="submit" class="btn btn-danger">Delete</button>
         </form>
       </div>
 

@@ -67,6 +67,10 @@ missions.route('/:id')
   });
 })
 
+.put( db.updateMission, (req, res) => {
+  res.redirect('/missions/' + req.body.missionID);
+})
+
 .delete( db.deleteMission, (req, res) => {
   res.redirect('/missions');
 })

@@ -16,7 +16,7 @@ users.route('/')
 })
 // create new user
 .post(db.createUser, (req, res) => {
-  res.redirect('/'); // change route to logged in page
+  res.redirect('/users/login'); // change route to logged in page
 })
 
 // show new user form
