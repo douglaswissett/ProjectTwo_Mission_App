@@ -1,9 +1,13 @@
 var pg            = require('pg');
-var conString     = "postgres://"+process.env.DB_USER+":"+process.env.DB_PASS+"@"+process.env.DB_HOST+"/gomissiondb";
 var bcrypt        = require('bcrypt');
 var salt          = bcrypt.genSaltSync(10);
 var session       = require('express-session');
 
+if(process.env.ENVIRONMENT === 'production') {
+  var conString = process.env.DATABASE_URL;  
+} else {
+  var conString     = "postgres://"+process.env.DB_USER+":"+process.env.DB_PASS+"@"+process.env.DB_HOST+"/gomissiondb";
+}
 
 /* User Authentication/Authorisation */
 function loginUser(req,res,next) {
