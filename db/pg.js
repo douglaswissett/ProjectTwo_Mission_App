@@ -268,23 +268,26 @@ function updateProfile(req, res, next) {
   var userName = req.body.userName;
   var userEmail = req.body.userEmail;
   var userPassword = req.body.userPassword;
+  createSecure(userEmail, userPassword, saveProfile);
 
-  pg.connect(conString, function(err, client, done) {
-
-    if(err) {
-      return console.error('error fetching client from pool', err);
-    }
-    client.query('UPDATE users SET name = $1, email = $2 WHERE user_id = $3;',
-    [ userName, userEmail, userID ],
-     function(err, result) {
-      done();
+  function saveProfile(email, hash) {
+    pg.connect(conString, function(err, client, done) {
 
       if(err) {
-        return console.error('error running query', err);
+        return console.error('error fetching client from pool', err);
       }
-      next();
-    });
-  });  
+      client.query('UPDATE users SET name = $1, email = $2, password_digest = $3 WHERE user_id = $4;',
+      [ userName, email, hash, userID ],
+       function(err, result) {
+        done();
+
+        if(err) {
+          return console.error('error running query', err);
+        }
+        next();
+      });
+    });    
+  }
 }
 
 module.exports.createUser    = createUser;
