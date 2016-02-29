@@ -8,7 +8,7 @@ var db           = require('../db/pg');
 // show logged user homepage
 missions.route('/')
 .get( db.showMissions, (req,res) => {
-  console.log(res.rows);
+
   res.render('pages/log_home', {
     user: req.session.user,
     missionData: res.rows
@@ -57,13 +57,11 @@ missions.route('/profile')
   });
 })
 .put( db.updateProfile, db.loginUser, (req, res) => {
-  console.log(res.rows);
   req.session.user = res.rows;
 
   req.session.save(() => {
     res.redirect('./');
   });
-
 })
 
 missions.delete('/profile/users/logout', (req, res) => {
@@ -77,6 +75,7 @@ missions.delete('/profile/users/logout', (req, res) => {
 // show mission detail page
 missions.route('/:id')
 .get( db.getMission, (req, res) => {
+
   res.render('pages/log_detail', {
     user: req.session.user,
     missionData: res.rows
@@ -84,7 +83,6 @@ missions.route('/:id')
 })
 
 .put( db.updateMission, db.updateScore, (req, res) => {
-  console.log(req.body);
   res.redirect('/missions/' + req.body.missionID);
 })
 

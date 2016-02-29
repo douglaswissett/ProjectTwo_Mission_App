@@ -192,3 +192,8 @@ html, body {
   margin: 0 auto;
   top: -60px;
 }
+
+#map3 {
+  height: 680px;
+  width: 100%;
+}
