@@ -26,6 +26,17 @@
 
       <div class="carousel-inner" role="listbox">
 
+        <% if(!missionData) { %>
+          <div class="item active">
+            <div class="container">
+              <div class="carousel-caption">
+                <h1>Pick a mission</h1>
+                <p style="font-weight: bold"><a href="/missions/new">Choose one</a></p>
+              </div>
+            </div>
+          </div>
+
+        <% } else { %>
 
         <% missionData.forEach((mission, index) => { %>
           <% if(index === 0) { %> <div class="item active"> <% } else { %>
@@ -47,6 +58,8 @@
           </div>
           <input type="hidden" class="coords" value="<%= mission.lat %>,<%= mission.lng %>">
         <% }) %>
+
+        <% } %>
     
       </div>
       <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
