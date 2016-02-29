@@ -18,8 +18,11 @@
       
       
         <% userData.forEach((x) => { %>
-          <div>
-            <h5>Username: <%= x.name %> | Completed missions: <%= x.score %></h5>
+          <div class="user-card">
+            -----------------------------------------------------------
+            <h5>Username: <%= x.name %></h5>
+            <h5>Completed Missions: <%= x.score %></h5>
+            -----------------------------------------------------------
           </div>
         <% }) %>
       

@@ -11,7 +11,6 @@ var reload           = require('reload');
 var session          = require('express-session');
 var pgSession        = require('connect-pg-simple')(session);
 var pg               = require('pg');
-//var conString        = "postgres://"+process.env.DB_USER+":"+process.env.DB_PASS+"@"+process.env.DB_HOST+"/gomissiondb";
 var db               = require('./db/pg');
 var app              = express();
 
