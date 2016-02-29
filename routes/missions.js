@@ -55,9 +55,14 @@ missions.route('/profile')
     user: req.session.user
   });
 })
-.put( db.updateProfile, (req, res) => {
-  console.log(req.body);
-  res.redirect('./');
+.put( db.updateProfile, db.loginUser, (req, res) => {
+  console.log(res.rows);
+  req.session.user = res.rows;
+
+  req.session.save(() => {
+    res.redirect('./');
+  });
+
 })
 
 missions.delete('/profile/users/logout', (req, res) => {

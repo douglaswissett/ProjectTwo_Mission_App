@@ -266,8 +266,8 @@ function deleteMission(req, res, next) {
 function updateProfile(req, res, next) {
   var userID = req.body.userID;
   var userName = req.body.userName;
-  var userEmail = req.body.userEmail;
-  var userPassword = req.body.userPassword;
+  var userEmail = req.body.email;
+  var userPassword = req.body.password;
   createSecure(userEmail, userPassword, saveProfile);
 
   function saveProfile(email, hash) {
