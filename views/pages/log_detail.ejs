@@ -17,7 +17,7 @@
       <div class="details-container">
         <h2>Mission details: <%= missionData.mission_id %></h2>
         <h3>Agent: <%= user.name %></h3><br/>
-        <p>Your mission is to go to <%= missionData.objective %>, located in <%= missionData.location %>.<br>
+        <p>Your mission is to go to <%= missionData.objective %>, located in <%= missionData.location %>.<br/><br/>
           Latitude: <%= missionData.lat %><br>
           Longitude: <%= missionData.lng %></p>
 
@@ -26,17 +26,15 @@
         </div>
 
         <div>
-          <form method="POST" action="/missions/<%= missionData.mission_id + '?_method=PUT' %>">
+          <form method="POST" action="/missions/<%= missionData.mission_id + '?_method=PUT' %>" class="detailForm">
             <input type="hidden" name="missionID" value="<%= missionData.mission_id %>">
             <input type="hidden" name="userID" value="<%= user.user_id %>">
-            <button type="submit" class="btn btn-primary">Complete</button>
+            <button type="submit" class="btn btn-lg btn-primary detailBtn">Complete</button>
           </form>
-        </div>
-
-        <div>
-          <form method="POST" action="/missions/<%= missionData.mission_id + '?_method=DELETE' %>">
+        
+          <form method="POST" action="/missions/<%= missionData.mission_id + '?_method=DELETE' %>" class="detailForm">
             <input type="hidden" name="missionID" value="<%= missionData.mission_id %>">
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="submit" class="btn btn-lg btn-danger detailBtn">Delete</button>
           </form>
         </div>
       </div>
@@ -57,9 +55,10 @@
 
         map = new google.maps.Map(document.getElementById('map3'), {
           center: {lat: x, lng: y},
-          zoom: 13
+          zoom: 18,
+          mapTypeId: google.maps.MapTypeId.SATELLITE
         });
-
+        map.setTilt(45);
 
         var marker = new google.maps.Marker({
           position: {lat: x, lng: y},
@@ -67,6 +66,19 @@
           animation: google.maps.Animation.DROP
         });
         marker.addListener('click', toggleBounce);
+
+        map.addListener('center_changed', function() {
+          // 3 seconds after the center of the map has changed, pan back to the
+          // marker.
+          window.setTimeout(function() {
+            map.panTo(marker.getPosition());
+          }, 3000);
+        });
+
+        marker.addListener('click', function() {
+          map.setZoom(18);
+          map.setCenter(marker.getPosition());
+        });
       }
 
       function toggleBounce() {
