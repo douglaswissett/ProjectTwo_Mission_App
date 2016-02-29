@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <%- include ../partials/head %>
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <%- include ../partials/nav %>
+    </nav>
+
+
+
+
+<!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <% missionData.forEach((mission, index) => { %>
+          <li data-target="#myCarousel" data-slide-to="<%= index %>" class="active"></li>
+        <% }) %>
+      </ol>
+
+      <div class="carousel-inner" role="listbox">
+
+        <% if(missionData.length === 0) { %>
+          <div class="item active">
+            <div class="container">
+              <div class="carousel-caption">
+                <h1>Pick a mission</h1>
+                <p style="font-weight: bold"><a href="/missions/new">Choose one</a></p>
+              </div>
+            </div>
+          </div>
+        <% } %>
+
+        <% missionData.forEach((mission, index) => { %>
+          <% if(index === 0) { %> <div class="item active"> <% } else { %>
+          <div class="item">
+            <% } %>
+            
+            <div class="container">
+              <div class="carousel-caption">
+                <h1>Your missions:</h1>
+                <h2><%= mission.objective %></h2>
+                <ul>
+                  <li style="font-weight: bold">Location: <%= mission.location %></li>
+                  <li style="font-weight: bold">Status: <%= mission.completed %></li>
+                  <li>LntLng: <%= mission.lat %> , <%= mission.lng %></li>
+                </ul>
+                <p style="font-weight: bold"><a href="/missions/<%= mission.mission_id %>">Ready?</a></p>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" class="coords" value="<%= mission.lat %>,<%= mission.lng %>">
+        <% }) %>
+
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div><!-- /.carousel -->
+
+
+    </div>
+
+    <div id="map2"></div>
+
+    
+    
+    <script>
+      var map;
+      var center = {lat:30.668353, lng: -0.12750};
+      var destin = [];
+
+      var styles = [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#000000"},{"lightness":13}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#146474"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#021019"}]}]
+
+    
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map2'), {
+          center: center,
+          zoom: 2,
+          disableDefaultUI: true,
+          zoomControl: false, 
+          scrollwheel: false,
+          draggable: false,
+          disableDoubleClickZoom: true,
+          styles: styles
+        });
+
+      // test marker
+      setMarkers(map);
+      }
+
+      
+      function setMarkers(map) {
+        $('.coords').each(function(el, val) {
+          var coord = val.value.split(',');
+          var x = +(coord[0]);
+          var y = +(coord[1]);
+          destin.push([x,y]);
+        }); 
+        // Adds markers to the map.
+
+        // Marker sizes are expressed as a Size of X,Y where the origin of the image
+        // (0,0) is located in the top left of the image.
+
+        // Origins, anchor positions and coordinates of the marker increase in the X
+        // direction to the right and in the Y direction down.
+        var image = {
+          url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          // This marker is 20 pixels wide by 32 pixels high.
+          size: new google.maps.Size(20, 32),
+          // The origin for this image is (0, 0).
+          origin: new google.maps.Point(0, 0),
+          // The anchor for this image is the base of the flagpole at (0, 32).
+          anchor: new google.maps.Point(0, 32)
+        };
+        // Shapes define the clickable region of the icon. The type defines an HTML
+        // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+        // The final coordinate closes the poly by connecting to the first coordinate.
+        var shape = {
+          coords: [1, 1, 1, 20, 18, 20, 18, 1],
+          type: 'poly'
+        };
+        for (var i = 0; i < destin.length; i++) {
+          var loc = destin[i];
+          var marker = new google.maps.Marker({
+            position: {lat: loc[0], lng: loc[1]},
+            map: map,
+            shape: shape,
+            animation: google.maps.Animation.DROP
+          });
+          // add click event to zoom in on marker
+          google.maps.event.addListener(marker, 'click', function() {
+            map.setCenter(this.getPosition());
+            map.setZoom(10);
+            // setTimeout to zoom out to world
+            window.setTimeout(function() {
+            map.setZoom(2);
+            map.setCenter(center);
+          }, 6000);
+          });
+        }    
+      }
+
+      function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+      }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.APIKEY %>&callback=initMap"
+    async defer></script>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">&copy; 2016 GoMission.</p>
+      </div>
+    </footer>
+
+    <%- include ../partials/footer %>
+
+  </body>
+</html>

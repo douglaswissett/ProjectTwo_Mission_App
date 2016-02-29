@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <%- include ../partials/head %>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+
+      <%- include ../partials/nav %>
+
+    </nav> 
+
+  
+
+
+    <div class="container">
+
+      <div class="new-search-div">      
+        <h2>New mission!</h2>
+        <!-- search field -->
+        <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+        <!-- google map -->
+        
+      </div>
+
+      <div id="map"></div>
+
+
+<!-- user id to link with creation -->
+<input type="hidden" value="<%= user.user_id %>" id="userID"> 
+<script>
+var map;
+var infowindow;
+
+
+function initMap() {
+  var newYork = {lat: 40.74002, lng: -73.989817};
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: newYork,
+    zoom: 13
+  });
+
+
+  var input = (document.getElementById('pac-input'));
+
+  //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+
+  var infowindow = new google.maps.InfoWindow();
+
+  var marker = new google.maps.Marker({
+    map: map,
+    anchorPoint: new google.maps.Point(0, -29)
+  });
+
+  //   var infowindow = new google.maps.InfoWindow({
+  //   content: '<p>Marker Location:' + marker.getPosition() + '</p>'
+  // });
+
+  autocomplete.addListener('place_changed', function() {
+    infowindow.close();
+    marker.setVisible(false);
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      window.alert("Autocomplete's returned place contains no geometry");
+      return;
+    }
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);  // Why 17? Because it looks good.
+    }
+    marker.setIcon(/** @type {google.maps.Icon} */({
+      url: place.icon,
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(35, 35)
+    }));
+    marker.setPosition(place.geometry.location);
+    marker.setVisible(true);
+
+    var address = '';
+    if (place.address_components) {
+      address = [
+        (place.address_components[0] && place.address_components[0].short_name || ''),
+        (place.address_components[1] && place.address_components[1].short_name || ''),
+        (place.address_components[2] && place.address_components[2].short_name || '')
+      ].join(' ');
+    }
+    
+    
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address + '<form action="/missions" method="POST">' + '<input type="hidden" name="address1" value="'+place.name+'""><input type="hidden" name="address2" value="'+address+'"><input type="hidden" name="userID" value="'+$('#userID').val()+'"><input type="hidden" name="position" value="'+marker.getPosition()+'"><input type="submit" value="Accept"></form>');
+    infowindow.open(map, marker);
+  });
+}
+
+</script>
+
+
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.APIKEY %>&libraries=places&callback=initMap"
+      async defer></script>
+    </div>
+
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">&copy; 2016 GoMission.</p>
+      </div>
+    </footer>
+    
+    <%- include ../partials/footer %>
+
+  </body>
+</html>

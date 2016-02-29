@@ -1,0 +1,219 @@
+html, body {
+  height: 100%;
+  padding-top: 25px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.login-div {
+  width: 400px;
+  height: 220px;
+  margin: 100px auto 0;
+  padding: 50px;
+  border-radius: 15px;
+  background-color: #aaa;
+}
+
+.login-div h2 {
+  margin-top: 10px;
+}
+
+.banner {
+  text-align: center;
+}
+
+.logout {
+  padding-top: 13px;
+}
+
+.new-search-div {
+  border: 1px solid red;
+  width: 340px;
+  height: 140px;
+  padding: 10px;
+  float: left;
+}
+
+.card-div {
+  border: 1px solid red;
+  margin-top: 20px;
+  width: 320px;
+}
+
+.mission-cards {
+  border: 1px solid gold;
+  width: 300px;
+  height: 200px;
+  margin: 0 10px;
+}
+
+.profile-form {
+  border: 1px solid red;
+  width: 270px;
+  height: 600px;
+}
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+  height: 280px;
+  margin-bottom: 60px;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel .item {
+  height: 280px;
+  background-color: #777;
+}
+.carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 500px;
+}
+
+.carousel li {
+  list-style: none;
+}
+
+/* Testing styles for Google API */
+
+
+#map {
+  height: 500px;
+  width: 700px;
+  margin-top: 50px;
+  float: right;
+  position: relative;
+  top: -40px;
+  box-shadow: 0 2px 10px black;
+}
+
+
+.controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 300px;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+.pac-container {
+  font-family: Roboto;
+}
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+
+
+
+
+
+
+/* Homepage map */
+
+#map2 {
+  height: 680px;
+  width: 100%;
+  margin: 0 auto;
+  top: -60px;
+}
+
+.details-container {
+  border: 1px solid red;
+  width: 400px;
+  display: inline-block;
+  text-align: center;
+  margin: 60px 0 0 60px;
+}
+
+.detailForm {
+  display: inline-block;
+}
+
+.detailBtn {
+  margin: 10px;
+}
+
+#map3 {
+  height: 520px;
+  width: 550px;
+  float: right;
+  box-shadow: 0 2px 10px black;
+  margin: 15px 80px 0 0;
+}

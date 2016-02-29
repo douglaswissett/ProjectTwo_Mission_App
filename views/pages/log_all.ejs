@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <%- include ../partials/head %>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+
+      <%- include ../partials/nav %>
+
+    </nav>
+
+    <div class="container">
+
+      <h2>Search for a user</h2>
+      
+      
+        <% userData.forEach((x) => { %>
+          <div>
+            <h5>Username: <%= x.name %> | Completed missions: <%= x.score %></h5>
+          </div>
+        <% }) %>
+      
+
+      
+
+
+    </div>
+
+
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">&copy; 2016 GoMission.</p>
+      </div>
+    </footer>
+    
+    <%- include ../partials/footer %>
+
+  </body>
+</html>
