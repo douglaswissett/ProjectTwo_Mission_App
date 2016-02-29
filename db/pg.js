@@ -1,14 +1,20 @@
 var pg            = require('pg');
-var conString     = "postgres://"+process.env.DB_USER+":"+process.env.DB_PASS+"@"+process.env.DB_HOST+"/gomissiondb";
 var bcrypt        = require('bcrypt');
 var salt          = bcrypt.genSaltSync(10);
 var session       = require('express-session');
 
+if(process.env.ENVIRONMENT === 'production') {
+  var conString = process.env.DATABASE_URL;  
+} else {
+  var conString     = "postgres://"+process.env.DB_USER+":"+process.env.DB_PASS+"@"+process.env.DB_HOST+"/gomissiondb";
+}
 
 /* User Authentication/Authorisation */
 function loginUser(req,res,next) {
   var email = req.body.email;
   var password = req.body.password;
+
+
 
   pg.connect(conString, function(err, client, done) {
     if(err) {
@@ -22,14 +28,15 @@ function loginUser(req,res,next) {
       if(err) {
         return console.error('error running query', err);
       }
-
       if(result.rows.length === 0) {
-        res.sendStatus(204).json({ sucess: true, data: 'no content' })
+        res.render('pages/userError', {
+          user: req.session.user
+        });
+        return;
       } else if(bcrypt.compareSync(password, result.rows[0].password_digest)) {
         res.rows = result.rows[0];
         next();
       }
-      
     })
   })
 }

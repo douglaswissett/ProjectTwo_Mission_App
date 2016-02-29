@@ -33,9 +33,8 @@ users.get('/login', (req, res) => {
   });
 });
 // login user and save session
-users.post('/login', db.loginUser, (req, res) => {
+users.post('/login', db.loginUser, (req, res, err) => {
   req.session.user = res.rows;
-
   req.session.save(() => {
     res.redirect('/missions');
   });
