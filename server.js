@@ -27,6 +27,7 @@ if(process.env.ENVIRONMENT === 'production') {
 
 
 
+
 /*Sessions*/
 app.use(session({
   store: new pgSession({
@@ -63,9 +64,18 @@ app.use('/users', userRoutes);
 app.use('/missions', missionRoutes);
 
 
+// 404 error catch all: http://stackoverflow.com/questions/6528876/how-to-redirect-404-errors-to-a-page-in-expressjs
+app.use(function(req, res, next){
+  res.status(404);
 
-
-
+  // respond with html page
+  if (req.accepts('html')) {
+    res.render('pages/error', {
+      user: req.session.user
+    });
+    return;
+  }
+});
 
 var port = process.env.PORT || 3000;
 app.listen(port, ()=> {

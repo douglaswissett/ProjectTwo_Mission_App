@@ -14,6 +14,8 @@ function loginUser(req,res,next) {
   var email = req.body.email;
   var password = req.body.password;
 
+
+
   pg.connect(conString, function(err, client, done) {
     if(err) {
       return console.error('error fetching client from pool', err);
@@ -26,14 +28,15 @@ function loginUser(req,res,next) {
       if(err) {
         return console.error('error running query', err);
       }
-
       if(result.rows.length === 0) {
-        res.sendStatus(204).json({ sucess: true, data: 'no content' })
+        res.render('pages/userError', {
+          user: req.session.user
+        });
+        return;
       } else if(bcrypt.compareSync(password, result.rows[0].password_digest)) {
         res.rows = result.rows[0];
         next();
       }
-      
     })
   })
 }

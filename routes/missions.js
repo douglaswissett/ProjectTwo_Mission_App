@@ -8,7 +8,7 @@ var db           = require('../db/pg');
 // show logged user homepage
 missions.route('/')
 .get( db.showMissions, (req,res) => {
-
+  console.log(res.rows);
   res.render('pages/log_home', {
     user: req.session.user,
     missionData: res.rows
