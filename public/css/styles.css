@@ -121,6 +121,11 @@ html, body {
   list-style: none;
 }
 
+.newBtn {
+  position: relative;
+  left: 25px;
+}
+
 /* Testing styles for Google API */
 
 

@@ -96,7 +96,7 @@ function initMap() {
     }
     
     
-    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address + '<form action="/missions" method="POST">' + '<input type="hidden" name="address1" value="'+place.name+'""><input type="hidden" name="address2" value="'+address+'"><input type="hidden" name="userID" value="'+$('#userID').val()+'"><input type="hidden" name="position" value="'+marker.getPosition()+'"><input type="submit" value="Accept"></form>');
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address + '<form action="/missions" method="POST">' + '<input type="hidden" name="address1" value="'+place.name+'""><input type="hidden" name="address2" value="'+address+'"><input type="hidden" name="userID" value="'+$('#userID').val()+'"><input type="hidden" name="position" value="'+marker.getPosition()+'"><input type="submit" value="Accept" class="btn btn-primary newBtn"></form>');
     infowindow.open(map, marker);
   });
 }
